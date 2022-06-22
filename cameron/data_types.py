@@ -1,3 +1,5 @@
+import json
+
 __all__ = ["AttrDict"]
 
 
@@ -16,3 +18,12 @@ class AttrDict:
             return [self.transform_output(val) for val in data]
         else:
             return data
+
+    @classmethod
+    def json_load(cls, filename):
+        with open(filename) as f:
+            return cls(json.load(f))
+
+    @classmethod
+    def json_loads(cls, json_data):
+        return cls(json.loads(f))
