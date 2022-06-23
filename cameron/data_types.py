@@ -13,9 +13,9 @@ class AttrDict:
     @classmethod
     def transform_output(cls, data):
         if isinstance(data, dict):
-            return AttrDict(data)
+            return cls(data)
         elif isinstance(data, list):
-            return [self.transform_output(val) for val in data]
+            return [cls.transform_output(val) for val in data]
         else:
             return data
 
