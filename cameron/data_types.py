@@ -5,10 +5,10 @@ __all__ = ["AttrDict"]
 
 class AttrDict:
     def __init__(self, data):
-        self.__data = data
+        self._data = data
 
     def __getattr__(self, key):
-        return self.transform_output(self.__data.get(key, None))
+        return self.transform_output(self._data.get(key, None))
 
     @classmethod
     def transform_output(cls, data):
@@ -20,10 +20,10 @@ class AttrDict:
             return data
 
     def __repr__(self):
-        return "{}({})".format(type(self).__name__, self.__data)
+        return "{}({})".format(type(self).__name__, self._data)
 
     def __str__(self):
-        return str(self.__data)
+        return str(self._data)
 
     @classmethod
     def json_load(cls, filename):
