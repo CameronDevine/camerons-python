@@ -20,7 +20,7 @@ class AttrDict:
             return data
 
     def __repr__(self):
-        return "{}({})".format(self.__name__, self.__data)
+        return "{}({})".format(type(self).__name__, self.__data)
 
     def __str__(self):
         return str(self.__data)
