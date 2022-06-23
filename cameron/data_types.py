@@ -19,6 +19,12 @@ class AttrDict:
         else:
             return data
 
+    def __repr__(self):
+        return "{}({})".format(self.__name__, self.__data)
+
+    def __str__(self):
+        return str(self.__data)
+
     @classmethod
     def json_load(cls, filename):
         with open(filename) as f:
