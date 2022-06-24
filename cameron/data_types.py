@@ -8,7 +8,7 @@ class AttrDict:
         self._data = data
 
     def __getattr__(self, key):
-        return self.transform_output(self._data.get(key, None))
+        return self.transform_output(self.get(key))
 
     @classmethod
     def transform_output(cls, data):
@@ -18,6 +18,21 @@ class AttrDict:
             return [cls.transform_output(val) for val in data]
         else:
             return data
+
+    def keys(self):
+        return self._data.keys()
+
+    def get(self, *args):
+        return self._data.get(*args)
+
+    def __getitem__(self, key):
+        return self.get(key)
+
+    def items(self):
+        return self._data.items()
+
+    def __contains__(self, key):
+        return key in self._data
 
     def __repr__(self):
         return "{}({})".format(type(self).__name__, self._data)
