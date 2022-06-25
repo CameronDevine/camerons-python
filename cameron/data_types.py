@@ -43,8 +43,8 @@ class AttrDict:
     @classmethod
     def json_load(cls, filename):
         with open(filename) as f:
-            return cls(json.load(f))
+            return cls.transform_output(json.load(f))
 
     @classmethod
     def json_loads(cls, json_data):
-        return cls(json.loads(f))
+        return cls.transform_output(json.loads(f))
