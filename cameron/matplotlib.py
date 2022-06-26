@@ -37,10 +37,12 @@ def named_bar_chart(
     for i, row in enumerate(data):
         set_args = list(args)
         if per_set_args is not None:
-            set_args.extend(per_set_args)
+            assert len(per_set_args) == num_sets
+            set_args.extend(per_set_args[i])
         set_kwargs = dict(kwargs)
         if per_set_kwargs is not None:
-            set_kwargs.update(per_set_kwargs)
+            assert len(per_set_kwargs) == num_sets
+            set_kwargs.update(per_set_kwargs[i])
         output.append(
             plt.bar(x + offsets[i], row, width=width, *set_args, **set_kwargs)
         )
