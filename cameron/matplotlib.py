@@ -20,6 +20,7 @@ def named_bar_chart(
     offset_factor=1,
     per_set_args=None,
     per_set_kwargs=None,
+    tick_kwargs={},
     **kwargs
 ):
     if not isinstance(data, np.ndarray):
@@ -46,5 +47,5 @@ def named_bar_chart(
         output.append(
             plt.bar(x + offsets[i], row, width=width, *set_args, **set_kwargs)
         )
-    output.extend(plt.xticks(x, labels))
+    output.extend(plt.xticks(x, labels, **tick_kwargs))
     return output
