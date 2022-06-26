@@ -12,7 +12,16 @@ def save_all(filename):
             pdf.savefig(fig)
 
 
-def named_bar_chart(labels, data, *args, width_factor=1, offset_factor=1, **kwargs):
+def named_bar_chart(
+    labels,
+    data,
+    *args,
+    width_factor=1,
+    offset_factor=1,
+    per_set_args=None,
+    per_set_kwargs=None,
+    **kwargs
+):
     if not isinstance(data, np.ndarray):
         data = np.array(data)
     if data.ndim == 1:
@@ -25,7 +34,15 @@ def named_bar_chart(labels, data, *args, width_factor=1, offset_factor=1, **kwar
     x = np.arange(0, num_labels)
     offsets = offset_factor * np.arange(-0.5 + max_width / 2, 0.5, max_width)
     output = []
-    for offset, row in zip(offsets, data):
-        output.append(plt.bar(x + offset, row, width=width, *args, **kwargs))
+    for i, row in enumerate(data):
+        set_args = list(args)
+        if per_set_args is not None:
+            set_args.extend(per_set_args)
+        set_kwargs = dict(kwargs)
+        if per_set_kwargs is not None:
+            set_kwargs.update(per_set_kwargs)
+        output.append(
+            plt.bar(x + offsets[i], row, width=width, *set_args, **set_kwargs)
+        )
     output.extend(plt.xticks(x, labels))
     return output
