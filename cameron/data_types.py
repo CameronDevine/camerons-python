@@ -23,13 +23,14 @@ class AttrDict:
         return self._data.keys()
 
     def get(self, *args):
-        return self._data.get(*args)
+        return self.transform_output(self._data.get(*args))
 
     def __getitem__(self, key):
         return self.get(key)
 
     def items(self):
-        return self._data.items()
+        for key, val in self._data.items():
+            yield key, self.transform_output(val)
 
     def __contains__(self, key):
         return key in self._data
