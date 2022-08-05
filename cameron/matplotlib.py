@@ -6,10 +6,12 @@ import numpy as np
 __all__ = ["save_all", "named_bar_chart", "named_bar_chart_points"]
 
 
-def save_all(filename):
+def save_all(filename, **infodict):
     with PdfPages(filename) as pdf:
         for fig in plt.get_fignums():
             pdf.savefig(fig)
+        d = pdf.infodict()
+        d.update(infodict)
 
 
 def bar_chart_spacing(num_labels, num_sets, width_factor, offset_factor):
