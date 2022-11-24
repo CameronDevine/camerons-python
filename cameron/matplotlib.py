@@ -6,10 +6,13 @@ import numpy as np
 __all__ = ["save_all", "named_bar_chart", "named_bar_chart_points"]
 
 
-def save_all(filename, **infodict):
+def save_all(filename, tight=False, **infodict):
+    kwargs = {}
+    if tight:
+        kwargs['bbox_inches'] = "tight"
     with PdfPages(filename) as pdf:
         for fig in plt.get_fignums():
-            pdf.savefig(fig)
+            pdf.savefig(fig, **kwargs)
         d = pdf.infodict()
         d.update(infodict)
 
